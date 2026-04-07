@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Arte y Recursos/Arte/Fondos/luz.png" type="Texture" id=1]
+[ext_resource path="res://Arte y Recursos/Arte/Fondos/brillo.png" type="Texture" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 1, -2 )
+scale = Vector2( 1.48592, 1.39847 )
+texture = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="."]
+visible = false
+texture = ExtResource( 1 )

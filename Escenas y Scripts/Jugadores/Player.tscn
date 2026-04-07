@@ -1,0 +1,140 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://Escenas y Scripts/Jugadores/Player.gd" type="Script" id=1]
+[ext_resource path="res://Arte y Recursos/Arte/Botones/hover.png" type="Texture" id=2]
+[ext_resource path="res://Arte y Recursos/Arte/Botones/der.png" type="Texture" id=3]
+[ext_resource path="res://Arte y Recursos/Arte/Botones/izq.png" type="Texture" id=4]
+[ext_resource path="res://Arte y Recursos/Arte/Jugador/Caminar4.png" type="Texture" id=5]
+[ext_resource path="res://Arte y Recursos/Arte/Jugador/Caminar1.png" type="Texture" id=6]
+[ext_resource path="res://Arte y Recursos/Arte/tileset/luz.png" type="Texture" id=7]
+[ext_resource path="res://Arte y Recursos/Arte/Jugador/Caminar2.png" type="Texture" id=8]
+[ext_resource path="res://Arte y Recursos/Arte/Jugador/Caminar3.png" type="Texture" id=9]
+[ext_resource path="res://Arte y Recursos/Arte/tileset/brillo.png" type="Texture" id=10]
+[ext_resource path="res://Arte y Recursos/Arte/Jugador/Flotar1.png" type="Texture" id=11]
+[ext_resource path="res://Arte y Recursos/Arte/Jugador/Flotar2.png" type="Texture" id=12]
+[ext_resource path="res://Arte y Recursos/Arte/Jugador/Caer1.png" type="Texture" id=13]
+[ext_resource path="res://Arte y Recursos/Arte/Jugador/Caer2.png" type="Texture" id=14]
+[ext_resource path="res://Arte y Recursos/Arte/Jugador/Caer4.png" type="Texture" id=15]
+[ext_resource path="res://Arte y Recursos/Arte/Jugador/Flotar4.png" type="Texture" id=16]
+[ext_resource path="res://Arte y Recursos/Arte/Jugador/Caer3.png" type="Texture" id=17]
+[ext_resource path="res://Arte y Recursos/Arte/Jugador/Flotar3.png" type="Texture" id=18]
+[ext_resource path="res://Arte y Recursos/Arte/Botones/triangulo.png" type="Texture" id=22]
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 13, 24 )
+
+[sub_resource type="SpriteFrames" id=14]
+animations = [ {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 17 ), ExtResource( 15 ), ExtResource( 15 ), ExtResource( 17 ), ExtResource( 14 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "default",
+"speed": 13.0
+} ]
+
+[sub_resource type="SpriteFrames" id=12]
+animations = [ {
+"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 18 ), ExtResource( 16 ), ExtResource( 18 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "default",
+"speed": 7.0
+} ]
+
+[sub_resource type="SpriteFrames" id=13]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[node name="Player" type="KinematicBody2D"]
+collision_mask = 30
+script = ExtResource( 1 )
+
+[node name="PlatformDetector" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 6 )
+collision_mask = 8
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2( 0, -28 )
+offset = Vector2( 0, -40 )
+current = true
+zoom = Vector2( 1.2, 1.2 )
+smoothing_enabled = true
+smoothing_speed = 7.0
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 3, -26 )
+shape = SubResource( 11 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="Left" type="TouchScreenButton" parent="UI"]
+position = Vector2( 22, 348 )
+scale = Vector2( 0.496, 0.496 )
+normal = ExtResource( 4 )
+pressed = ExtResource( 2 )
+passby_press = true
+action = "move_left"
+visibility_mode = 1
+
+[node name="Right" type="TouchScreenButton" parent="UI"]
+position = Vector2( 143, 348 )
+scale = Vector2( 0.496, 0.496 )
+normal = ExtResource( 3 )
+pressed = ExtResource( 2 )
+passby_press = true
+action = "move_right"
+visibility_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI"]
+anchor_left = 0.897
+anchor_top = 0.5
+anchor_right = 0.897
+anchor_bottom = 0.5
+margin_left = -64.6
+margin_top = -72.0
+margin_right = 65.4
+margin_bottom = 72.0
+
+[node name="Jump" type="TouchScreenButton" parent="UI/TextureRect"]
+position = Vector2( -8, 157 )
+scale = Vector2( 0.536, 0.564 )
+normal = ExtResource( 22 )
+pressed = ExtResource( 2 )
+action = "jump"
+visibility_mode = 1
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 5, -38 )
+scale = Vector2( 0.21765, 0.220426 )
+texture = ExtResource( 7 )
+
+[node name="Sprite" type="Sprite" parent="Light2D"]
+position = Vector2( 0, 8 )
+scale = Vector2( 0.395246, 0.393926 )
+texture = ExtResource( 10 )
+
+[node name="caer" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( -1, -28 )
+frames = SubResource( 14 )
+frame = 3
+playing = true
+
+[node name="fijo" type="AnimatedSprite" parent="."]
+position = Vector2( -1, -28 )
+frames = SubResource( 12 )
+frame = 3
+playing = true
+
+[node name="caminar" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( -1, -28 )
+frames = SubResource( 13 )
+frame = 4
+playing = true
